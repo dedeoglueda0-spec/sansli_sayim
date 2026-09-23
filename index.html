@@ -1,0 +1,274 @@
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#e89b5c">
+
+    <link rel="manifest" href="manifest.json">
+
+    <title>Şanslı Sayım 🎲</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background: #fff8ef;
+        }
+
+        .container {
+            width: 400px;
+            max-width: 90%;
+
+            background: white;
+            padding: 35px;
+
+            border-radius: 30px;
+
+            text-align: center;
+
+            box-shadow: 0 15px 40px rgba(93, 67, 48, 0.12);
+
+            border: 1px solid #f1e3d3;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5d4330;
+        }
+
+        .star {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fff0d9;
+            border-radius: 50%;
+
+            font-size: 21px;
+        }
+
+        h1 {
+            margin: 5px 0 8px;
+
+            color: #4d382b;
+            font-size: 28px;
+        }
+
+        .description {
+            margin: 0 0 30px;
+
+            color: #a18d7d;
+            font-size: 14px;
+        }
+
+        .number-area {
+            width: 210px;
+            height: 210px;
+
+            margin: 0 auto 30px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #fff4e4;
+
+            border-radius: 50%;
+
+            border: 10px solid #fffaf3;
+
+            box-shadow:
+                inset 0 0 0 2px #f5dfc3,
+                0 10px 25px rgba(173, 125, 76, 0.12);
+
+            color: #d98b45;
+
+            font-size: 75px;
+            font-weight: bold;
+        }
+
+        .number-area.animate {
+            animation: pop 0.4s ease;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.75);
+                opacity: 0.5;
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        button {
+            width: 100%;
+
+            padding: 17px;
+
+            border: none;
+            border-radius: 16px;
+
+            background: #e89b5c;
+
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow: 0 7px 15px rgba(232, 155, 92, 0.25);
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #db8947;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .bottom {
+            margin-top: 22px;
+
+            color: #b6a494;
+            font-size: 12px;
+        }
+
+        .history {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+
+            margin-top: 12px;
+
+            min-height: 25px;
+        }
+
+        .history span {
+            padding: 5px 9px;
+
+            background: #faf0e3;
+
+            color: #9b7758;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="top">
+            <div class="logo">Şanslı Sayım</div>
+            <div class="star">⭐</div>
+        </div>
+
+        <h1>Bir sayı seç! 🎲</h1>
+
+        <p class="description">
+            1 ile 100 arasında rastgele bir sayı bul
+        </p>
+
+        <div id="sayi" class="number-area">
+            ?
+        </div>
+
+        <button onclick="sayiSec()">
+            ✨ Rastgele Sayı Seç
+        </button>
+
+        <div class="bottom">
+            Son seçilen sayılar
+        </div>
+
+        <div id="history" class="history"></div>
+
+    </div>
+
+    <script>
+        let gecmis = [];
+
+        function sayiSec() {
+
+            let sayi = Math.floor(Math.random() * 100) + 1;
+
+            let kutu = document.getElementById("sayi");
+
+            kutu.classList.remove("animate");
+
+            void kutu.offsetWidth;
+
+            kutu.classList.add("animate");
+
+            kutu.innerText = sayi;
+
+            gecmis.unshift(sayi);
+
+            if (gecmis.length > 5) {
+                gecmis.pop();
+            }
+
+            let history = document.getElementById("history");
+
+            history.innerHTML = "";
+
+            gecmis.forEach(function(numara) {
+
+                let etiket = document.createElement("span");
+
+                etiket.innerText = numara;
+
+                history.appendChild(etiket);
+            });
+        }
+
+        // Uygulama önbelleği
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js");
+        }
+    </script>
+
+</body>
+</html>
+```

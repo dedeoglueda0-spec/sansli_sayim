@@ -1,0 +1,13 @@
+```json
+{
+    "name": "Şanslı Sayım",
+    "short_name": "Şanslı Sayım",
+    "description": "1 ile 100 arasında rastgele sayı seçici",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#fff8ef",
+    "theme_color": "#e89b5c",
+    "orientation": "portrait",
+    "icons": []
+}
+```
