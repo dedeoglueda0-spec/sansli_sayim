@@ -1,274 +1,637 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#e89b5c">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#10182f">
 
     <link rel="manifest" href="manifest.json">
 
-    <title>Şanslı Sayım 🎲</title>
+    <title>Şanslı Sayım</title>
 
     <style>
+
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
         }
 
         body {
-            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    #263b73 0%,
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 85% 85%,
+                    #482a70 0%,
+                    transparent 40%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #10182f,
+                    #1d1740
+                );
+        }
+
+        /* ANA UYGULAMA */
+
+        .app {
+
+            width: 100%;
+            height: 100dvh;
             min-height: 100vh;
 
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
 
-            font-family: Arial, sans-serif;
+            padding:
+                max(25px, env(safe-area-inset-top))
+                25px
+                max(25px, env(safe-area-inset-bottom))
+                25px;
 
-            background: #fff8ef;
+            position: relative;
+
+            overflow: hidden;
         }
 
-        .container {
-            width: 400px;
-            max-width: 90%;
+        /* ÜST KISIM */
 
-            background: white;
-            padding: 35px;
+        .header {
 
-            border-radius: 30px;
+            width: 100%;
 
-            text-align: center;
-
-            box-shadow: 0 15px 40px rgba(93, 67, 48, 0.12);
-
-            border: 1px solid #f1e3d3;
-        }
-
-        .top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-
-            margin-bottom: 25px;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #5d4330;
+
+            color: white;
+
+            font-size: 22px;
+            font-weight: 800;
+
+            letter-spacing: 0.3px;
         }
 
-        .star {
-            width: 42px;
-            height: 42px;
+        .emoji {
+
+            width: 48px;
+            height: 48px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            background: #fff0d9;
+            background: rgba(255,255,255,0.1);
+
+            border: 1px solid rgba(255,255,255,0.15);
+
             border-radius: 50%;
 
-            font-size: 21px;
+            font-size: 23px;
+
+            backdrop-filter: blur(10px);
         }
 
-        h1 {
-            margin: 5px 0 8px;
+        /* ORTA ALAN */
 
-            color: #4d382b;
-            font-size: 28px;
-        }
+        .center {
 
-        .description {
-            margin: 0 0 30px;
-
-            color: #a18d7d;
-            font-size: 14px;
-        }
-
-        .number-area {
-            width: 210px;
-            height: 210px;
-
-            margin: 0 auto 30px;
+            flex: 1;
 
             display: flex;
+            flex-direction: column;
+
             justify-content: center;
             align-items: center;
 
-            background: #fff4e4;
+            text-align: center;
+        }
+
+        .title {
+
+            margin: 0 0 8px;
+
+            color: white;
+
+            font-size: clamp(
+                32px,
+                8vw,
+                50px
+            );
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+
+            margin: 0 0 35px;
+
+            color: #aeb9d9;
+
+            font-size: 15px;
+        }
+
+        /* SAYI */
+
+        .number {
+
+            width: min(68vw, 310px);
+            height: min(68vw, 310px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             border-radius: 50%;
 
-            border: 10px solid #fffaf3;
+            background:
+                linear-gradient(
+                    135deg,
+                    #18c8c0,
+                    #7467f0
+                );
+
+            border: 10px solid rgba(
+                255,
+                255,
+                255,
+                0.12
+            );
 
             box-shadow:
-                inset 0 0 0 2px #f5dfc3,
-                0 10px 25px rgba(173, 125, 76, 0.12);
 
-            color: #d98b45;
+                0 25px 70px
+                rgba(0,0,0,0.45),
 
-            font-size: 75px;
-            font-weight: bold;
+                0 0 40px
+                rgba(24,200,192,0.15),
+
+                inset 0 0 30px
+                rgba(255,255,255,0.2);
+
+            color: white;
+
+            font-size: clamp(
+                70px,
+                20vw,
+                115px
+            );
+
+            font-weight: 900;
+
+            text-shadow:
+                0 5px 15px rgba(0,0,0,0.2);
+
+            transition: 0.3s;
         }
 
-        .number-area.animate {
-            animation: pop 0.4s ease;
+        /* SAYI ANİMASYONU */
+
+        .number.pop {
+
+            animation:
+                pop 0.45s ease;
         }
 
         @keyframes pop {
+
             0% {
-                transform: scale(0.75);
-                opacity: 0.5;
+
+                transform:
+                    scale(0.6)
+                    rotate(-8deg);
+
+                opacity: 0.4;
             }
 
-            70% {
-                transform: scale(1.08);
+            60% {
+
+                transform:
+                    scale(1.1)
+                    rotate(3deg);
+
+                opacity: 1;
             }
 
             100% {
-                transform: scale(1);
-                opacity: 1;
+
+                transform:
+                    scale(1)
+                    rotate(0deg);
             }
         }
 
-        button {
+        /* BUTON */
+
+        .button-area {
+
             width: 100%;
 
-            padding: 17px;
+            max-width: 520px;
+
+            margin: 0 auto;
+        }
+
+        button {
+
+            width: 100%;
+
+            height: 65px;
 
             border: none;
-            border-radius: 16px;
 
-            background: #e89b5c;
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #18c8c0,
+                    #7467f0
+                );
 
             color: white;
 
             font-size: 17px;
-            font-weight: bold;
+
+            font-weight: 900;
+
+            letter-spacing: 0.5px;
 
             cursor: pointer;
 
-            box-shadow: 0 7px 15px rgba(232, 155, 92, 0.25);
+            box-shadow:
+                0 12px 30px
+                rgba(24,200,192,0.2);
 
-            transition: 0.2s;
+            transition:
+                transform 0.15s,
+                box-shadow 0.15s;
         }
 
         button:hover {
-            background: #db8947;
-            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(116,103,240,0.35);
+
+            transform:
+                translateY(-2px);
         }
 
         button:active {
-            transform: scale(0.97);
+
+            transform:
+                scale(0.96);
         }
 
-        .bottom {
-            margin-top: 22px;
-
-            color: #b6a494;
-            font-size: 12px;
-        }
+        /* GEÇMİŞ */
 
         .history {
+
+            height: 55px;
+
             display: flex;
+
+            align-items: center;
+
             justify-content: center;
-            gap: 7px;
 
-            margin-top: 12px;
+            gap: 8px;
 
-            min-height: 25px;
+            overflow: hidden;
         }
 
         .history span {
-            padding: 5px 9px;
 
-            background: #faf0e3;
+            padding:
+                7px 11px;
 
-            color: #9b7758;
+            border-radius: 10px;
 
-            border-radius: 8px;
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            color: #c5cde5;
 
             font-size: 12px;
+
+            backdrop-filter:
+                blur(5px);
         }
+
+        /* ARKA PLAN IŞIKLARI */
+
+        .light {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            filter: blur(2px);
+
+            opacity: 0.35;
+
+            animation:
+                float 6s ease-in-out infinite;
+        }
+
+        .light.one {
+
+            width: 90px;
+            height: 90px;
+
+            background: #18c8c0;
+
+            top: 18%;
+            left: -30px;
+        }
+
+        .light.two {
+
+            width: 70px;
+            height: 70px;
+
+            background: #8b7cff;
+
+            top: 40%;
+            right: -25px;
+
+            animation-delay: 2s;
+        }
+
+        .light.three {
+
+            width: 50px;
+            height: 50px;
+
+            background: #18c8c0;
+
+            bottom: 20%;
+            left: 10%;
+
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-20px);
+            }
+        }
+
+        /* KÜÇÜK TELEFONLAR */
+
+        @media (max-height: 650px) {
+
+            .number {
+
+                width: 190px;
+                height: 190px;
+
+                font-size: 70px;
+            }
+
+            .subtitle {
+
+                margin-bottom: 15px;
+            }
+
+            button {
+
+                height: 55px;
+            }
+
+            .title {
+
+                font-size: 30px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <div class="container">
+<div class="app">
 
-        <div class="top">
-            <div class="logo">Şanslı Sayım</div>
-            <div class="star">⭐</div>
+    <!-- Arka plan ışıkları -->
+
+    <div class="light one"></div>
+
+    <div class="light two"></div>
+
+    <div class="light three"></div>
+
+
+    <!-- ÜST -->
+
+    <div class="header">
+
+        <div class="logo">
+            Şanslı Sayım ✨
         </div>
 
-        <h1>Bir sayı seç! 🎲</h1>
-
-        <p class="description">
-            1 ile 100 arasında rastgele bir sayı bul
-        </p>
-
-        <div id="sayi" class="number-area">
-            ?
+        <div class="emoji">
+            🎲
         </div>
-
-        <button onclick="sayiSec()">
-            ✨ Rastgele Sayı Seç
-        </button>
-
-        <div class="bottom">
-            Son seçilen sayılar
-        </div>
-
-        <div id="history" class="history"></div>
 
     </div>
 
-    <script>
-        let gecmis = [];
 
-        function sayiSec() {
+    <!-- ORTA -->
 
-            let sayi = Math.floor(Math.random() * 100) + 1;
+    <div class="center">
 
-            let kutu = document.getElementById("sayi");
+        <h1 class="title">
+            Sayını seç!
+        </h1>
 
-            kutu.classList.remove("animate");
+        <p class="subtitle">
+            1 ile 100 arasında şansını dene ✨
+        </p>
 
-            void kutu.offsetWidth;
 
-            kutu.classList.add("animate");
+        <div
+            id="sayi"
+            class="number"
+        >
+            ?
+        </div>
 
-            kutu.innerText = sayi;
+    </div>
 
-            gecmis.unshift(sayi);
 
-            if (gecmis.length > 5) {
-                gecmis.pop();
+    <!-- ALT -->
+
+    <div class="button-area">
+
+        <button onclick="sayiSec()">
+            🎯 RASTGELE SAYI SEÇ
+        </button>
+
+
+        <div
+            id="history"
+            class="history"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Son çıkan sayılar
+
+    let gecmis = [];
+
+
+    function sayiSec() {
+
+        // 1 - 100 arasında sayı
+
+        const sayi =
+            Math.floor(
+                Math.random() * 100
+            ) + 1;
+
+
+        // Sayı kutusu
+
+        const kutu =
+            document.getElementById(
+                "sayi"
+            );
+
+
+        // Animasyonu sıfırla
+
+        kutu.classList.remove(
+            "pop"
+        );
+
+
+        // Animasyonu yeniden başlat
+
+        void kutu.offsetWidth;
+
+
+        kutu.classList.add(
+            "pop"
+        );
+
+
+        // Sayıyı göster
+
+        kutu.innerText =
+            sayi;
+
+
+        // Geçmişe ekle
+
+        gecmis.unshift(
+            sayi
+        );
+
+
+        // En fazla 5 sayı
+
+        if (gecmis.length > 5) {
+
+            gecmis.pop();
+
+        }
+
+
+        // Geçmiş alanı
+
+        const history =
+            document.getElementById(
+                "history"
+            );
+
+
+        history.innerHTML =
+            "";
+
+
+        // Sayıları oluştur
+
+        gecmis.forEach(
+            function(numara) {
+
+                const span =
+                    document.createElement(
+                        "span"
+                    );
+
+                span.innerText =
+                    numara;
+
+                history.appendChild(
+                    span
+                );
+
             }
+        );
 
-            let history = document.getElementById("history");
+    }
 
-            history.innerHTML = "";
 
-            gecmis.forEach(function(numara) {
+    // PWA Service Worker
 
-                let etiket = document.createElement("span");
+    if (
+        "serviceWorker"
+        in navigator
+    ) {
 
-                etiket.innerText = numara;
+        navigator.serviceWorker.register(
+            "sw.js"
+        );
 
-                history.appendChild(etiket);
-            });
-        }
+    }
 
-        // Uygulama önbelleği
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js");
-        }
-    </script>
+</script>
 
 </body>
 </html>
-```
