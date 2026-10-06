@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(135deg, #667eea, #764ba2);
+
+    color: white;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+
+    text-align: center;
+
+    padding: 40px 25px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border-radius: 30px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.emoji {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+
+#sayi {
+    width: 160px;
+    height: 160px;
+
+    margin: 0 auto 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #764ba2;
+
+    font-size: 65px;
+    font-weight: bold;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    width: 100%;
+
+    padding: 18px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: #ffcc70;
+
+    color: #4b2e83;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* Telefon ekranları */
+@media (max-width: 500px) {
+
+    .container {
+        width: 92%;
+        padding: 35px 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    #sayi {
+        width: 140px;
+        height: 140px;
+        font-size: 55px;
+    }
+
+    button {
+        font-size: 18px;
+    }
+}
